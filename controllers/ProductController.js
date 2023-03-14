@@ -1,5 +1,6 @@
 import Product from "../models/ProductModel.js";
 
+//GET all datas
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -9,6 +10,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
+//GET data by id
 export const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -18,6 +20,7 @@ export const getProductById = async (req, res) => {
   }
 };
 
+//POST or insert data
 export const saveProduct = async (req, res) => {
   const product = new Product(req.body);
   try {
@@ -28,6 +31,7 @@ export const saveProduct = async (req, res) => {
   }
 };
 
+//PATCH or update data
 export const updateProduct = async (req, res) => {
     try {
       const updatedproduct = await Product.updateOne({_id:req.params.id}, {$set: req.body});
@@ -37,6 +41,7 @@ export const updateProduct = async (req, res) => {
     }
   };
 
+  //DELETE data
   export const deleteProduct = async (req, res) => {
     try {
       const deleteduser = await Product.deleteOne({_id:req.params.id});
@@ -45,3 +50,17 @@ export const updateProduct = async (req, res) => {
       res.status(400).json({ message: error.message });
     }
   };
+ 
+  //GET data by key and filter 
+  export const filterList = async (req,resp)=> {
+    let data = await Product.find(
+      {
+        "$or":[
+            {name:{$regex:req.params.key}}
+        ]
+    }
+    );
+    console.log(req.params.key);
+    resp.send(data);
+  
+  }
