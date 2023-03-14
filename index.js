@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import ProductRoute from "./routes/ProductRoute.js";
-const port = process.env.PORT||5000;
+const PORT = process.env.PORT||5000;
 
 const app = express();
 mongoose.connect("mongodb://localhost:27017/eduwork", {
@@ -17,4 +17,4 @@ app.use(cors());
 app.use(express.json());
 app.use(ProductRoute);
 
-app.listen(5000, () => console.log("Server Up and Running..."));
+app.listen(PORT, () => console.log("Server Up and Running..."));
