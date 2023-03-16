@@ -5,7 +5,8 @@ import ProductRoute from "./routes/ProductRoute.js";
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-mongoose.connect("mongodb://localhost:27017/eduwork", {
+const database = process.env.MONGO_URI || "mongodb://localhost:27017/eduwork";
+mongoose.connect( database, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
